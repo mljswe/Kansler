@@ -45,7 +45,7 @@ uka_farg <- function(...) {
 #'                        FALSE: x ar inte i decimalform (multpliceras inte med 100).
 #' @param n antal decimaler (nsmall)
 #'
-#'
+#' @export
 Svensk_procent <- function(x, ggr100 = TRUE, n) {
  paste0(format(round(x*(ggr100*100)), nsmall = n, decimal.mark =","), " %")
 }
