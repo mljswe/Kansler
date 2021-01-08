@@ -1,0 +1,17 @@
+Package: Kansler
+Title: Uuniversitetskanslersambetets R-paket
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Martin",
+           family = "LJ",
+           role = c("aut", "cre"),
+           email = "martin.lowing.jensen@uka.se")
+Description: Ett antal standarder och hjalpfunktioner som underhalls och anvands av Universitetskanslersambetet
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1.9000
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
