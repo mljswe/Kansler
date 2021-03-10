@@ -3,15 +3,16 @@
 \docType{data}
 \name{uka_farg_vect}
 \alias{uka_farg_vect}
-\title{Vektor med grundfarger}
+\title{Vektor med kanslerns farger}
 \format{
-An object of class \code{character} of length 12.
+An object of class \code{character} of length 18.
 }
 \usage{
 uka_farg_vect
 }
 \description{
-12 farger, varav de tre forsta ar uka:s huvudsakliga profilfarger. resten
-ar hamtade fran arsrapporten 2020 samt pahittade
+18 farger:
+nr. 1-3 uka:s huvudsakliga profilfarger
+nr. 4-6 sekundarfarger
 }
 \keyword{datasets}

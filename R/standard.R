@@ -1,26 +1,51 @@
-#' Vektor med grundfarger
+
+
+##### FARG OCH FORM #####
+
+# 1. Farg - vektorer med profilerfarger samt olika paletter
+# 2: Form - teman och standard-plots
+
+
+
+
+###############################################################################
+################################# 1. Farg #####################################
+###############################################################################
+
+
+# 1.1
+
+#' Vektor med kanslerns farger
 #'
-#' 12 farger, varav de tre forsta ar uka:s huvudsakliga profilfarger. resten
-#' ar hamtade fran arsrapporten 2020 samt pahittade
+#' 18 farger:
+#' nr. 1-3 uka:s huvudsakliga profilfarger
+#' nr. 4-6 sekundarfarger
 #'
 #' @export
-uka_farg_vect <- c(gul1 = "#C38B2C",
-              lila1 = "#602467",
-              bla1 = "#0064A9",
-              gul2 = "#E1C289",
-              lila2 = "#A786AA",
-              bla2 = "#8CAAD8",
-              gul3 = "#73521A",
-              lila3 = "#321335",
-              bla3 = "#0003a8",
-              gul4 = "#fce0b1",
-              lila4 = "#D0C1D6",
-              bla4 = "#C8D3EC")
+uka_farg_vect <- c(gul1 = "#ffab2e",
+                   gul2 = "#fec367",
+                   gul3 = "#ffd490",
+                   gul4 = "#c68529",
+                   gul5 = "#d7a560",
+                   gul6 = "#e1bc87",
+                   bla1 = "#016cbc",
+                   bla2 = "#4290ce",
+                   bla3 = "#76acdb",
+                   bla4 = "#084d98",
+                   bla5 = "#4a78b3",
+                   bla6 = "#7a99c5",
+                   lila1 = "#632896",
+                   lila2 = "#8c63b2",
+                   lila3 = "#a98dc7",
+                   lila4 = "#4d2470",
+                   lila5 = "#775a92",
+                   lila6 = "#9883ac")
 
 
 
 
 
+# 1.2
 
 #' Funktion som extraherar profilfarger
 #'
@@ -42,25 +67,29 @@ uka_farg <- function(...) {
 
 
 
+# 1.3
 
-
-#' Svensk procent
+#' Funktion som skapar paletter baserade pa fargerna i vektorn
 #'
-#' @param x tal som ska anges som procent
-#' @param ggr100 boolean; TRUE: x ar i decimalform (och multipliceras med 100). Standard.
-#'                        FALSE: x ar inte i decimalform (multpliceras inte med 100).
-#' @param n antal decimaler (nsmall)
+#' uka_prim:         UKA:s primara farger (9 st)
+#' uka_sek:          UKA:s sekundara farg (9 st)
+#' uka_gul/bla/lila: UKA:s gula/bla/lila farger (6 var)
+#' uka_1:            Forslag pa standardtema (12 st)
 #'
 #' @export
-Svensk_procent <- function(x, ggr100 = TRUE, n) {
- paste0(format(round(x*(ggr100*100)), nsmall = n, decimal.mark =","), " %")
-}
-
-
-
-
-
-
+uka_farg_paletter <- list("uka_prim" =  c(uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "1")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "2")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "3")]),
+                          "uka_sek"  =  c(uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "4")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "5")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "6")]),
+                          "uka_gul"  =    uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "gul")],
+                          "uka_bla"  =    uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "bla")],
+                          "uka_lila" =    uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "lila")],
+                          "uka_1"    =  c(uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "4")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "1")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "3")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "6")]))
 
 
 #' Tema UKA
@@ -69,7 +98,6 @@ Svensk_procent <- function(x, ggr100 = TRUE, n) {
 #'
 #' @param size anvands for att ange storlek pa text. default = 10
 #' @param angle ange vinkel pa x-axelns text. "a0" default. "a90" ger 90 grader.
-#'
 #'
 #' @export
 theme_uka1 <- function(size = 10, angle = "a0")  {
@@ -94,7 +122,6 @@ if (angle == "a0") {a = 0; h = 0.5} else if (angle == "a90") {a = 90; h <- 1}
 }
 
 
-
 #' UKA linjediagram 1
 #'
 #' använder theme_uka1 och uka_farg. for testning
@@ -117,11 +144,10 @@ gguka_line <- function(df1, x, y, g) {
   ggplot2::ggplot(df1, ggplot2::aes(x = !!enquo(x), y = {{y}}, group = {{g}})) +
     geom_line(aes(color = {{g}}), size = 0.8) +
     theme_uka1(angle = "a0") +
-    ggplot2::scale_color_manual(values = as.vector(uka_farg())) +
+    ggplot2::scale_color_manual(values = as.vector(uka_farg_paletter[["uka_1"]])) +
     ggplot2::scale_y_continuous(limits = c(0, ymax*1.2))
 
 }
-
 
 
 
@@ -135,11 +161,26 @@ gguka_line <- function(df1, x, y, g) {
 #'
 #' @examples df <- make_df()
 make_df <- function() {
-num <- c(1:20)
+num <- as.numeric(c(1:20))
 nam <- letters[1:20]
-gro = c(rep("0",7), rep("1", 7), rep("2", 6))
+gro = c(rep("0",3), rep("1", 3), rep("2", 3), rep("3", 3), rep("4", 3), rep("5", 3), rep("6", 2))
 out <- as.data.frame(cbind(num = as.numeric(num), nam, gro))
 return(out)
+}
+
+
+
+
+#' Svensk procent
+#'
+#' @param x tal som ska anges som procent
+#' @param ggr100 boolean; TRUE: x ar i decimalform (och multipliceras med 100). Standard.
+#'                        FALSE: x ar inte i decimalform (multpliceras inte med 100).
+#' @param n antal decimaler (nsmall)
+#'
+#' @export
+Svensk_procent <- function(x, ggr100 = TRUE, n) {
+  paste0(format(round(x*(ggr100*100)), nsmall = n, decimal.mark =","), " %")
 }
 
 
