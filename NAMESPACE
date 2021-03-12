@@ -2,7 +2,11 @@
 
 export(Svensk_antal)
 export(Svensk_procent)
+<<<<<<< HEAD
 export(gguka_bar)
+=======
+export(gguka_bar1)
+>>>>>>> 6e7001c81d16081fd1fa1d97550f188c7f096da8
 export(gguka_line)
 export(make_df)
 export(uka_farg)
