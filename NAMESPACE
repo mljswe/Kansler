@@ -3,6 +3,7 @@
 export(Svensk_antal)
 export(Svensk_procent)
 export(gguka_bar)
+export(gguka_bar)
 export(gguka_line)
 export(make_df)
 export(uka_farg)
