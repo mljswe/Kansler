@@ -234,6 +234,9 @@ Svensk_procent <- function(x, ggr100 = TRUE, n = 0) {
 }
 
 
+
+
+
 #' Svensk antal
 #'
 #' @param x tal som ska fa "ratt" formatering - " " som tusentalsavg., "," som decimal.
