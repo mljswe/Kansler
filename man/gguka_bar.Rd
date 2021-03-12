@@ -25,7 +25,3 @@ stapeldiagram (staplat)
 \description{
 använder theme_uka1
 }
-\examples{
-uka_line(df1 = df, x = nam, y = num, g = gro)
-
-}

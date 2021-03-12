@@ -4,15 +4,7 @@
 \alias{gguka_line}
 \title{UKA linjediagram 1}
 \usage{
-<<<<<<< HEAD
 gguka_line(df, x = x, y = y, g = g, pal = "uka_1", format = Svensk_antal)
-=======
-<<<<<<< HEAD
-gguka_line(df, x = x, y = y, g = g, pal = "uka_1", format = Svensk_antal)
-=======
-gguka_line(df1, x, y, g, pal)
->>>>>>> 6e7001c81d16081fd1fa1d97550f188c7f096da8
->>>>>>> f9ddbf6d7e138cb287d1ab7557d4a4fc46d56deb
 }
 \arguments{
 \item{df}{dataframe}
@@ -25,23 +17,11 @@ gguka_line(df1, x, y, g, pal)
 
 \item{t}{fargpalett (se lista i uka_farg_paletter)}
 
-<<<<<<< HEAD
 \item{format.}{default Svensk antal}
-=======
-<<<<<<< HEAD
-\item{format.}{default Svensk antal}
-=======
-\item{df}{dataframe}
->>>>>>> 6e7001c81d16081fd1fa1d97550f188c7f096da8
->>>>>>> f9ddbf6d7e138cb287d1ab7557d4a4fc46d56deb
 }
 \value{
 linjediagram
 }
 \description{
 använder theme_uka1#'
-}
-\examples{
-uka_line(df1 = df, x = nam, y = num, g = gro)
-
 }

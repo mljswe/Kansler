@@ -128,9 +128,6 @@ if (angle == "a0") {a = 0; h = 0.5} else if (angle == "a90") {a = 90; h <- 1}
 #'
 #' @return linjediagram
 #' @export
-#'
-#' @examples uka_line(df1 = df, x = nam, y = num, g = gro)
-#'
 gguka_line <- function(df, x = x, y = y, g = g, pal = "uka_1", format = Svensk_antal) {
 
   ymax <- df %>% dplyr::select({{y}}) %>% max()
@@ -160,9 +157,6 @@ gguka_line <- function(df, x = x, y = y, g = g, pal = "uka_1", format = Svensk_a
 #'
 #' @return stapeldiagram (staplat)
 #' @export
-#'
-#' @examples uka_line(df1 = df, x = nam, y = num, g = gro)
-#'
 gguka_bar <- function(df, x = x, y = y, g = g, pal = "uka_1", format = Svensk_antal ) {
   ggplot2::ggplot(df, ggplot2::aes(x = !!enquo(x), y = {{y}}, group = {{g}})) +
     geom_bar(aes(fill = {{g}}),
