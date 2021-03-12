@@ -3,9 +3,8 @@
 ##### FARG OCH FORM #####
 
 # 1. Farg - vektorer med profilerfarger samt olika paletter
-# 2: Form - teman och standard-plots
-
-
+# 2: Form - teman och standardplots
+# 3: Help - hjalpfunktioner for grafik
 
 
 ###############################################################################
@@ -71,13 +70,13 @@ uka_farg <- function(...) {
 
 #' Funktion som skapar paletter baserade pa fargerna i vektorn
 #'
-#' uka_prim:         UKA:s primara farger (9 st)
-#' uka_sek:          UKA:s sekundara farg (9 st)
-#' uka_gul/bla/lila: UKA:s gula/bla/lila farger (6 var)
-#' uka_1:            Forslag pa standardtema (12 st)
+#' @return uka_prim:         UKA:s primara farger (9 st)
+#' @return uka_sek:          UKA:s sekundara farg (9 st)
+#' @return uka_gul/bla/lila: UKA:s gula/bla/lila farger (6 var)
+#' @return uka_1:            Forslag pa standardtema (12 st)
 #'
 #' @export
-uka_farg_paletter <- list("uka_prim" =  c(uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "1")],
+uka_paletter <- list("uka_prim" =  c(uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "1")],
                                           uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "2")],
                                           uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "3")]),
                           "uka_sek"  =  c(uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "4")],
@@ -92,6 +91,17 @@ uka_farg_paletter <- list("uka_prim" =  c(uka_farg_vect[stringr::str_detect(name
                                           uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "6")]))
 
 
+
+
+
+
+###############################################################################
+################################# 2. Form #####################################
+###############################################################################
+
+
+
+
 #' Tema UKA
 #'
 #' Tema som anvands for formatering av figurer. Ar tankt att designad for uttag i formatet 4:6 / landscape.
@@ -100,7 +110,7 @@ uka_farg_paletter <- list("uka_prim" =  c(uka_farg_vect[stringr::str_detect(name
 #' @param angle ange vinkel pa x-axelns text. "a0" default. "a90" ger 90 grader.
 #'
 #' @export
-theme_uka1 <- function(size = 10, angle = "a0")  {
+uka_tema <- function(size = 10, angle = "a0")  {
 
 if (angle == "a0") {a = 0; h = 0.5} else if (angle == "a90") {a = 90; h <- 1}
 
@@ -122,36 +132,76 @@ if (angle == "a0") {a = 0; h = 0.5} else if (angle == "a90") {a = 90; h <- 1}
 }
 
 
+
+
+
+
 #' UKA linjediagram 1
 #'
-#' använder theme_uka1 och uka_farg. for testning
-#'
+#' använder theme_uka1#'
 #'
 #' @param x x-variabel
 #' @param y y-variabel (num)
 #' @param g gruppvariabel
+#' @param t fargpalett (se lista i uka_farg_paletter)
 #' @param df dataframe
+#' @param format. default Svensk antal
 #'
 #' @return linjediagram
 #' @export
 #'
-#' @examples anvander make_df: uka_line(df1 = df, x = nam, y = num, g = gro)
+#' @examples uka_line(df1 = df, x = nam, y = num, g = gro)
 #'
-gguka_line <- function(df1, x, y, g) {
+gguka_line <- function(df, x = x, y = y, g = g, pal = "uka_1", format = Svensk_antal) {
 
-  ymax <- df1 %>% dplyr::select({{y}}) %>% max()
+  ymax <- df %>% dplyr::select({{y}}) %>% max()
 
-  ggplot2::ggplot(df1, ggplot2::aes(x = !!enquo(x), y = {{y}}, group = {{g}})) +
-    geom_line(aes(color = {{g}}), size = 0.8) +
-    theme_uka1(angle = "a0") +
-    ggplot2::scale_color_manual(values = as.vector(uka_farg_paletter[["uka_1"]])) +
-    ggplot2::scale_y_continuous(limits = c(0, ymax*1.2))
-
+  ggplot2::ggplot(df, ggplot2::aes(x = !!enquo(x), y = {{y}}, group = {{g}})) +
+    geom_line(aes(color = {{g}}),
+              size = 0.8) +
+    uka_tema(angle = "a0") +
+    ggplot2::scale_color_manual(values = as.vector(uka_paletter[[{{pal}}]])) +
+    ggplot2::scale_y_continuous(limits = c(0, ymax*1.2),
+                                labels = {{format}})
 }
 
 
 
-### Fixa y i scale ovan
+
+#' UKA stapeldiagram 1
+#'
+#' använder theme_uka1
+#'
+#' @param x x-variabel
+#' @param y y-variabel (num)
+#' @param g gruppvariabel
+#' @param t fargpalett (se lista i uka_paletter)
+#' @param df dataframe
+#' @param format format. default Svensk antal
+#'
+#' @return stapeldiagram (staplat)
+#' @export
+#'
+#' @examples uka_line(df1 = df, x = nam, y = num, g = gro)
+#'
+gguka_bar <- function(df, x = x, y = y, g = g, pal = "uka_1", format = Svensk_antal ) {
+  ggplot2::ggplot(df, ggplot2::aes(x = !!enquo(x), y = {{y}}, group = {{g}})) +
+    geom_bar(aes(fill = {{g}}),
+             stat = "identity",
+             position = "stack") +
+    uka_tema(angle = "a0") +
+    ggplot2::scale_fill_manual(values = as.vector(uka_paletter[[{{pal}}]])) +
+    scale_y_continuous(labels = {{format}})
+}
+
+
+
+
+
+
+
+################################# 2. Form #####################################
+###############################################################################
 
 
 #' testdata
@@ -176,12 +226,36 @@ return(out)
 #' @param x tal som ska anges som procent
 #' @param ggr100 boolean; TRUE: x ar i decimalform (och multipliceras med 100). Standard.
 #'                        FALSE: x ar inte i decimalform (multpliceras inte med 100).
-#' @param n antal decimaler (nsmall)
+#' @param n antal decimaler (nsmall). default = 0
 #'
 #' @export
-Svensk_procent <- function(x, ggr100 = TRUE, n) {
+Svensk_procent <- function(x, ggr100 = TRUE, n = 0) {
   paste0(format(round(x*(ggr100*100)), nsmall = n, decimal.mark =","), " %")
 }
+
+
+#' Svensk antal
+#'
+#' @param x tal som ska fa "ratt" formatering - " " som tusentalsavg., "," som decimal.
+#' @param n antal decimaler (nsmall). default = 0
+#'
+#' @export
+Svensk_antal <- function(x, n = 0) {
+  paste0(format((x), big.mark = " ", nsmall = n, decimal.mark = ","))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
