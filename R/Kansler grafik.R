@@ -1,18 +1,6 @@
 
 
-##### FARG OCH FORM #####
 
-# 1. Farg - vektorer med profilerfarger samt olika paletter
-# 2: Form - teman och standardplots
-# 3: Help - hjalpfunktioner for grafik
-
-
-###############################################################################
-################################# 1. Farg #####################################
-###############################################################################
-
-
-# 1.1
 
 #' Vektor med kanslerns farger
 #'
@@ -44,7 +32,6 @@ uka_farg_vect <- c(gul1 = "#ffab2e",
 
 
 
-# 1.2
 
 #' Funktion som extraherar profilfarger
 #'
@@ -64,9 +51,6 @@ uka_farg <- function(...) {
 }
 
 
-
-
-# 1.3
 
 #' Funktion som skapar paletter baserade pa fargerna i vektorn
 #'
@@ -93,11 +77,6 @@ uka_paletter <- list("uka_prim" =  c(uka_farg_vect[stringr::str_detect(names(uka
 
 
 
-
-
-###############################################################################
-################################# 2. Form #####################################
-###############################################################################
 
 
 
@@ -197,11 +176,6 @@ gguka_bar <- function(df, x = x, y = y, g = g, pal = "uka_1", format = Svensk_an
 
 
 
-
-
-
-################################# 2. Form #####################################
-###############################################################################
 
 
 #' testdata
