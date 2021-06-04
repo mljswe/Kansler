@@ -4,10 +4,10 @@
 
 #' Vektor med kanslerns farger
 #'
-#' 18 farger:
+#' 21 farger:
 #' nr. 1-3 uka:s huvudsakliga profilfarger
 #' nr. 4-6 sekundarfarger
-#'
+#' rod, gron och gra är komplementfarger
 #' @export
 uka_farg_vect <- c(gul1 = "#ffab2e",
                    gul2 = "#fec367",
@@ -26,7 +26,10 @@ uka_farg_vect <- c(gul1 = "#ffab2e",
                    lila3 = "#a98dc7",
                    lila4 = "#4d2470",
                    lila5 = "#775a92",
-                   lila6 = "#9883ac")
+                   lila6 = "#9883ac",
+                   rod = "#c63527",
+                   gron = "#7a9a01",
+                   gra = "#857874")
 
 
 
@@ -72,7 +75,11 @@ uka_paletter <- list("uka_prim" =  c(uka_farg_vect[stringr::str_detect(names(uka
                           "uka_1"    =  c(uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "4")],
                                           uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "1")],
                                           uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "3")],
-                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "6")]))
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "6")]),
+                          "uka_komp" =  c(uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "rod")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "gron")],
+                                          uka_farg_vect[stringr::str_detect(names(uka_farg_vect), "gra")])
+                     )
 
 
 
